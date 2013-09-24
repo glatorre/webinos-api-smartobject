@@ -1,0 +1,145 @@
+<html>
+<head>
+    <title>PZP TestPage </title>
+    <!--link rel="stylesheet" href="../../css/index.css" type="text/css" media="screen"/-->
+
+    <script src="../../js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../../webinos.js"></script>
+    <script type="text/javascript">
+    var debug;
+
+        function fillArea(service, methods){
+            for(var i in methods){
+                $("#maindiv").append(service.displayName+": "+methods[i].name+"<br>");
+            }
+        }
+
+        $(document).ready(function () {
+            function logMessage(msg) {
+                if (msg) {
+                    $('#message').append('<li>' + msg + '</li>');
+                }
+            }
+
+            function printInfo(data) {
+                logMessage(data.payload.message);
+            }
+
+            webinos.session.addListener('info', printInfo);
+
+            var test = {};
+            var recentService;
+
+            //$('#findService').bind('click', function () {
+                test = {};
+                recentService = null;
+                
+                
+            webinos.discovery.findServices(new ServiceType('http://webinos.org/api/smartobject.*'),
+                {   onError:function (err){
+                        alert(err);
+                    },
+                    onFound:function (service) {
+                        // alert(JSON.stringify(service));
+                        // test[service.serviceAddress] = service;
+                        alert(service);
+
+                        service.bind(
+                            {
+                                onBind:function (service) {
+                                    //alert('TEST API ' + service.api + ' bound.');
+                                    service.getMethods( function (result) {
+                                        //alert(JSON.stringify(result));
+                                        fillArea(service, result);
+                                    },
+                                    function (error) {
+                                        alert(error.code + " " + error.message);
+                                    });
+                                    
+                                }
+                            });
+                }});
+            //});
+            // $('#bind').bind('click', function () {
+            //     recentService = test[$('#get42Services option:selected').val()];
+            //     recentService.bindService({onBind:function (service) {
+            //         logMessage('TEST API ' + service.api + ' bound.');
+            //     }});
+            // });
+            // $('#get42').bind('click', function () {
+            //     debug = recentService;
+                
+                // recentService.getMethods( function (result) {
+                //             alert(JSON.stringify(result));
+                //         },
+                //         function (error) {
+                //             alert(error.code + " " + error.message);
+                //         });
+
+                // recentService.callMethod("setProgram", {programCode:"p1", start:"10", end:"12"}, function (result) {
+                //             alert(JSON.stringify(result));
+                //         },
+                //         function (error) {
+                //             alert(error.code + " " + error.message);
+                //         });
+
+                // recentService.callMethod("sum", {op1:12,op2:10}, function (result) {
+                //             alert(result);
+                //         },
+                //         function (error) {
+                //             alert(error.code + " " + error.message);
+                //         });
+            // });
+            // $('#listen42').bind('click', function () {
+
+            //     recentService.listenerFor42(function (result) {
+            //         alert(result.msg);
+            //     }, {opts:"unused"});
+            // });
+
+        });
+    </script>
+</head>
+<body>
+
+<div id="maindiv">
+
+</div>
+<!--
+<table>
+    <tr>
+        <td>Use "Find Services" to search for available get42-Services.<br/>
+            Select one, then bind and use. Select another and bind again and use.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="findService" class="button">Find Services</button>
+            <br/>
+            <select id="get42Services"></select>
+        </td>
+    </tr>
+    <tr>
+        <td><p>
+            <i> The selected address means the Service at that address
+                will be used.</i>
+        </p></td>
+    </tr>
+    <tr>
+        <td>
+            <button id="bind" class="button">Bind</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="get42" class="button">Get 42</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="listen42" class="button">Listener for 42</button>
+        </td>
+    </tr>
+</table> -->
+</body>
+</html>
