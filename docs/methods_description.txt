@@ -1,0 +1,18 @@
+[
+  {
+     name    : "setProgram",
+     inputs  : 
+          [ 
+               {name: "programCode", displayName: “Program Code”, description: ”Pr. = 1 bla bla , P3. = 2 bla bla”, type: "number" , range: [1,2,3] | “1-3” ,  (solo int?)
+
+               {name: "start", type: "datetime"}, 
+               {name: "end", type: "datetime"}
+           ],
+      outputs : 
+          [
+               {name: “consumption”, displayName: “Instant Consumption”, description: ”Pr. = 1 bla bla , P3. = 2 bla bla”, type: ”number”, unit:”watt/h”}, //2.5 KW/h
+
+               {name: “maxPowerDay”, type: ”number”, unit:”watt”}, //3.1 KW
+          ]
+   }
+];
