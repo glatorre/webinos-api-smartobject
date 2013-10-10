@@ -9,8 +9,10 @@
     var debug;
 
         function fillArea(service, methods){
+            alert(JSON.stringify(methods));
             for(var i in methods){
                 $("#maindiv").append(service.displayName+": "+methods[i].name+"<br>");
+
             }
         }
 
@@ -33,9 +35,8 @@
             //$('#findService').bind('click', function () {
                 test = {};
                 recentService = null;
-                
-                
-            webinos.discovery.findServices(new ServiceType('http://webinos.org/api/smartobject.*'),
+            
+            webinos.discovery.findServices(new ServiceType('http://webinos.org/api/smartobject/*'),
                 {   onError:function (err){
                         alert(err);
                     },
@@ -48,55 +49,26 @@
                             {
                                 onBind:function (service) {
                                     //alert('TEST API ' + service.api + ' bound.');
-                                    service.getMethods( function (result) {
-                                        //alert(JSON.stringify(result));
-                                        fillArea(service, result);
-                                    },
-                                    function (error) {
-                                        alert(error.code + " " + error.message);
-                                    });
+                                    // service.getMethods( function (result) {
+                                    
+                                    //     fillArea(service, result);
+                                    // },
+                                    // function (error) {
+                                    //     alert(error.code + " " + error.message);
+                                    // });
+
+                                    service.callMethod("sum",{op1:5,op2:6},
+                                        function(res){
+                                            alert(res);
+                                        },
+                                        function(err){
+                                            alert("err");
+                                        });
                                     
                                 }
                             });
                 }});
-            //});
-            // $('#bind').bind('click', function () {
-            //     recentService = test[$('#get42Services option:selected').val()];
-            //     recentService.bindService({onBind:function (service) {
-            //         logMessage('TEST API ' + service.api + ' bound.');
-            //     }});
-            // });
-            // $('#get42').bind('click', function () {
-            //     debug = recentService;
-                
-                // recentService.getMethods( function (result) {
-                //             alert(JSON.stringify(result));
-                //         },
-                //         function (error) {
-                //             alert(error.code + " " + error.message);
-                //         });
-
-                // recentService.callMethod("setProgram", {programCode:"p1", start:"10", end:"12"}, function (result) {
-                //             alert(JSON.stringify(result));
-                //         },
-                //         function (error) {
-                //             alert(error.code + " " + error.message);
-                //         });
-
-                // recentService.callMethod("sum", {op1:12,op2:10}, function (result) {
-                //             alert(result);
-                //         },
-                //         function (error) {
-                //             alert(error.code + " " + error.message);
-                //         });
-            // });
-            // $('#listen42').bind('click', function () {
-
-            //     recentService.listenerFor42(function (result) {
-            //         alert(result.msg);
-            //     }, {opts:"unused"});
-            // });
-
+            
         });
     </script>
 </head>
@@ -105,41 +77,5 @@
 <div id="maindiv">
 
 </div>
-<!--
-<table>
-    <tr>
-        <td>Use "Find Services" to search for available get42-Services.<br/>
-            Select one, then bind and use. Select another and bind again and use.
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button id="findService" class="button">Find Services</button>
-            <br/>
-            <select id="get42Services"></select>
-        </td>
-    </tr>
-    <tr>
-        <td><p>
-            <i> The selected address means the Service at that address
-                will be used.</i>
-        </p></td>
-    </tr>
-    <tr>
-        <td>
-            <button id="bind" class="button">Bind</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button id="get42" class="button">Get 42</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button id="listen42" class="button">Listener for 42</button>
-        </td>
-    </tr>
-</table> -->
 </body>
 </html>

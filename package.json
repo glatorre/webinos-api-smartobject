@@ -18,6 +18,7 @@
 , "main": "./lib/rpc_smartobject.js"
 , "dependencies":
   {
+	"webinos-jsonrpc2" : "*"
   }
 , "bundleDependencies":
   [
