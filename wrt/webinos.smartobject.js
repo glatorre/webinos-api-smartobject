@@ -7,10 +7,17 @@
      * @param obj Object containing displayName, api, etc.
      */
     SmartObjectModule = function(obj) {
-       this.base = WebinosService;
-       this.base(obj);
+       //this.base = WebinosService;
+       //this.base(obj);
+       WebinosService.call(this, obj);
     };
-    SmartObjectModule.prototype = new WebinosService;
+
+    //SmartObjectModule.prototype = new WebinosService;
+    SmartObjectModule.prototype = Object.create(WebinosService.prototype);
+    // The following allows the 'instanceof' to work properly
+    SmartObjectModule.prototype.constructor = SmartObjectModule;
+    // Register to the service discovery
+    _webinos.registerServiceConstructor("http://webinos.org/api/smartobject", SmartObjectModule);
     
     /**
      * To bind the service.
