@@ -1,8 +1,9 @@
 webinos-api-smartobject
 =======================
 
-API for smart objects
+A webinos API for smart objects. Basically allows objects to describe themselves and their methods to be called.
 
-Open the file webinos-utilities/wrt/webinos.servicedisco.js and add the following line to the findservice function:
+The API defines the following methods:
 
-if (typeof SmartObjectModule !== 'undefined') typeMapCompatible['http://webinos.org/api/smartobject'] = SmartObjectModule;
++ getMethods(successCB, errorCB)
++ callMethod(methodName, params, successCB, errorCB)
