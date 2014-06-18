@@ -55,4 +55,17 @@
             }
         );
     };
+
+    SmartObjectModule.prototype.callAsyncMethod = function(method_name, params_list, successCB, errorCB){
+        var rpc = webinos.rpcHandler.createRPC(this, "callAsyncMethod", {method: method_name, params: params_list});
+
+        webinos.rpcHandler.executeRPC(rpc,
+            function (params){
+                successCB(params);
+            },
+            function (error){
+                errorCB(error);
+            }
+        );
+    };
 }());

@@ -57,7 +57,15 @@
                                     //     alert(error.code + " " + error.message);
                                     // });
 
-                                    service.callMethod("sum",{op1:5,op2:6},
+                                    // service.callMethod("sum",{op1:5,op2:6},
+                                    //     function(res){
+                                    //         alert(JSON.stringify(res));
+                                    //     },
+                                    //     function(err){
+                                    //         alert(JSON.stringify(err));
+                                    //     });
+
+                                    service.callAsyncMethod("getStatus_async",{},
                                         function(res){
                                             alert(JSON.stringify(res));
                                         },
